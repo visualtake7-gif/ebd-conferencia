@@ -131,6 +131,40 @@ button:disabled{
   object-fit:cover;
   display:block;
 }
+/* Select (campo Área) */
+select{
+  width:100%;
+  padding:12px 14px;
+  border-radius:8px;
+  border:1px solid #dcdcdc;
+  font-size:15px;
+  outline:none;
+  background:#fff;
+  color:#333;
+  transition:.2s;
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+
+  /* seta personalizada */
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  background-size:18px;
+  padding-right:40px;
+}
+
+/* foco igual os inputs */
+select:focus{
+  border-color:#1f6fff;
+  box-shadow:0 0 0 2px rgba(31,111,255,.1);
+}
+
+/* placeholder visual */
+select option[value=""]{
+  color:#999;
+}
 </style>
 </head>
 <body>
@@ -171,6 +205,17 @@ button:disabled{
         <label>Grupo</label>
         <input type="text" name="grupo" required>
       </div>
+      <div class="field">
+  <label>Área</label>
+  <select name="area" required>
+    <option value="">Selecione a área</option>
+    <option value="Curuçambá">Curuçambá</option>
+    <option value="Distrito Industrial">Distrito Industrial</option>
+    <option value="PAAR">PAAR</option>
+    <option value="Guajará">Guajará</option>
+  </select>
+</div>
+
 
       <button type="submit" id="btn">
         Continuar para o pagamento
@@ -194,7 +239,7 @@ const msg  = document.getElementById("msg");
 const btn  = document.getElementById("btn");
 
 /* URL do Web App (Google Apps Script) */
-const urlScript = "https://script.google.com/macros/s/AKfycbxcOp5me1CGmbPyO7vM3RrO85kEFojAyDL74rUjHjG9vq2I-C6fVYcrbmBMsm-D7Ir0tg/exec";
+const urlScript = "https://script.google.com/macros/s/AKfycbz1vTqZNoaqiAEhi8HE4DzyEIrr6DjUfJ6uYoz4Zn1OUOfF7w44XvByW1aTLumd0nnzJQ/exec";
 
 /* Seu link de pagamento */
 const linkPagamento = "https://checkout.nubank.com.br/7c5DzBjn7G13vdnd";
@@ -285,4 +330,3 @@ function gerarComprovante(id){
 
 </body>
 </html>
-
