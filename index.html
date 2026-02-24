@@ -2,102 +2,181 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Inscrição - Evento</title>
+<title>Inscrição – Evento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{
+  box-sizing:border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
 body{
-  font-family: Arial, sans-serif;
-  background:#f2f4f7;
   margin:0;
-  padding:0;
+  min-height:100vh;
+  background:linear-gradient(135deg,#0f3d8c,#1f6fff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
-.container{
-  max-width:420px;
-  margin:40px auto;
-  background:#fff;
-  padding:25px;
-  border-radius:8px;
-  box-shadow:0 0 10px rgba(0,0,0,.1);
+.card{
+  width:100%;
+  max-width:460px;
+  background:#ffffff;
+  border-radius:16px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  overflow:hidden;
 }
 
-h2{
-  text-align:center;
+.header{
+  background:linear-gradient(135deg,#1f6fff,#0f3d8c);
+  color:#fff;
+  padding:24px 24px 20px 24px;
+}
+
+.header h1{
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+}
+
+.header p{
+  margin:6px 0 0;
+  font-size:14px;
+  opacity:.9;
+}
+
+.form-area{
+  padding:24px;
+}
+
+.field{
+  margin-bottom:16px;
 }
 
 label{
   display:block;
-  margin-top:12px;
+  font-size:13px;
   font-weight:600;
+  margin-bottom:6px;
+  color:#333;
 }
 
 input{
   width:100%;
-  padding:10px;
-  margin-top:5px;
-  border-radius:5px;
-  border:1px solid #ccc;
+  padding:12px 14px;
+  border-radius:8px;
+  border:1px solid #dcdcdc;
+  font-size:15px;
+  outline:none;
+  transition:.2s;
+}
+
+input:focus{
+  border-color:#1f6fff;
+  box-shadow:0 0 0 2px rgba(31,111,255,.1);
 }
 
 button{
   width:100%;
-  margin-top:20px;
-  padding:12px;
-  background:#1f6fff;
+  padding:14px;
   border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#1f6fff,#0f3d8c);
   color:#fff;
   font-size:16px;
-  border-radius:6px;
+  font-weight:700;
   cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px rgba(31,111,255,.35);
 }
 
 button:disabled{
   opacity:.6;
+  cursor:default;
+  transform:none;
+  box-shadow:none;
 }
 
 #msg{
+  margin-top:14px;
   text-align:center;
-  margin-top:15px;
+  font-size:14px;
   font-weight:600;
+  color:#1f6fff;
+}
+
+.footer{
+  text-align:center;
+  padding:14px;
+  font-size:12px;
+  color:#777;
+  border-top:1px solid #eee;
 }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="card">
 
-  <h2>Ficha de Inscrição</h2>
+  <div class="header">
+    <h1>Inscrição para o Evento</h1>
+    <p>Preencha seus dados para garantir sua participação</p>
+  </div>
 
-  <form id="formInscricao">
+  <div class="form-area">
 
-    <label>Nome completo</label>
-    <input type="text" name="nome" required>
+    <form id="formInscricao">
 
-    <label>Telefone</label>
-    <input type="text" name="telefone" required>
+      <div class="field">
+        <label>Nome completo</label>
+        <input type="text" name="nome" required>
+      </div>
 
-    <label>E-mail</label>
-    <input type="email" name="email" required>
+      <div class="field">
+        <label>Telefone</label>
+        <input type="text" name="telefone" required>
+      </div>
 
-    <label>Congregação</label>
-    <input type="text" name="congregacao" required>
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" name="email" required>
+      </div>
 
-    <button type="submit" id="btn">Continuar para o pagamento</button>
+      <div class="field">
+        <label>Congregação</label>
+        <input type="text" name="congregacao" required>
+      </div>
 
-  </form>
+      <button type="submit" id="btn">
+        Continuar para o pagamento
+      </button>
 
-  <div id="msg"></div>
+    </form>
+
+    <div id="msg"></div>
+
+  </div>
+
+  <div class="footer">
+    Sistema de inscrição online
+  </div>
 
 </div>
 
 <script>
-
 const form = document.getElementById("formInscricao");
 const msg  = document.getElementById("msg");
 const btn  = document.getElementById("btn");
 
 /* URL do Web App (Google Apps Script) */
-const urlScript = "https://script.google.com/macros/s/AKfycbzn0HFct3jns7y8O1iN3CDlhXuTb_6bXGStlGr7c7R2insSzCRYQDBESN6AyFERBWM-mg/exec";
+const urlScript = "https://script.google.com/macros/s/AKfycbw_b4zpX14IshkmMYjPhWOS6p5nbATczGTquY20g82gCoioFpC-vLpJ-mOCPbjgdXo9Mw/exec";
 
 /* Seu link de pagamento */
 const linkPagamento = "https://checkout.nubank.com.br/7c5DzBjn7G13vdnd";
@@ -106,38 +185,35 @@ form.addEventListener("submit", function(e){
   e.preventDefault();
 
   btn.disabled = true;
-  msg.innerText = "Salvando inscrição...";
+  msg.innerText = "Salvando sua inscrição...";
 
   const dados = new FormData(form);
 
   fetch(urlScript,{
-    method: "POST",
-    body: dados
+    method:"POST",
+    body:dados
   })
-  .then(res => res.text())
+  .then(r => r.text())
   .then(resposta => {
 
-    if(resposta === "OK"){
-      msg.innerText = "Redirecionando para o pagamento...";
-      setTimeout(()=>{
+    if(resposta.trim() === "OK"){
+      msg.innerText = "Inscrição realizada. Redirecionando para o pagamento...";
+      setTimeout(() => {
         window.location.href = linkPagamento;
-      },700);
+      }, 800);
     }else{
-      msg.innerText = "Erro ao salvar inscrição.";
+      msg.innerText = "Não foi possível salvar sua inscrição.";
       btn.disabled = false;
     }
 
   })
-  .catch(()=>{
-    msg.innerText = "Falha na conexão.";
+  .catch(() => {
+    msg.innerText = "Falha na conexão. Tente novamente.";
     btn.disabled = false;
   });
 
 });
-
 </script>
 
 </body>
 </html>
-
-
