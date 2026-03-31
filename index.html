@@ -6,237 +6,113 @@
 <link rel="icon" href="UAADEM (1).png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-*{
-  box-sizing:border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
-}
+*{ box-sizing:border-box; font-family:"Segoe UI",Arial,sans-serif; }
 
 body{
-  margin:0;
-  min-height:100vh;
+  margin:0; min-height:100vh;
   background:linear-gradient(135deg,#046101,#046101);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+  display:flex; align-items:center; justify-content:center; padding:20px;
 }
 
 .card{
-  width:100%;
-  max-width:460px;
-  background:#ffffff;
-  border-radius:16px;
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-  overflow:hidden;
+  width:100%; max-width:460px; background:#fff;
+  border-radius:16px; box-shadow:0 20px 40px rgba(0,0,0,.15); overflow:hidden;
 }
+
+.site-header img{ width:100%; max-height:180px; object-fit:cover; display:block; }
 
 .header{
   background:linear-gradient(135deg,#08a002,#046101);
-  color:#ffffff;
-  padding:24px 24px 20px 24px;
+  color:#fff; padding:24px;
 }
+.header h1{ margin:0; font-size:22px; font-weight:700; }
+.header p{ margin:6px 0 0; font-size:14px; opacity:.9; }
 
-.header h1{
-  margin:0;
-  font-size:22px;
-  font-weight:700;
-}
+.form-area{ padding:24px; }
 
-.header p{
-  margin:6px 0 0;
-  font-size:14px;
-  opacity:.9;
-}
+.field{ margin-bottom:16px; }
 
-.form-area{
-  padding:24px;
-}
-
-.field{
-  margin-bottom:16px;
-}
-
-label{
-  display:block;
-  font-size:13px;
-  font-weight:600;
-  margin-bottom:6px;
-  color:#333;
-}
+label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#333; }
 
 input, select{
-  width:100%;
-  padding:12px 14px;
-  border-radius:8px;
-  border:1px solid #dcdcdc;
-  font-size:15px;
-  outline:none;
-  transition:.2s;
+  width:100%; padding:12px 14px; border-radius:8px;
+  border:1px solid #dcdcdc; font-size:15px; outline:none; transition:.2s;
 }
-
 input:focus, select:focus{
-  border-color:#1f6fff;
-  box-shadow:0 0 0 2px rgba(31,111,255,.1);
+  border-color:#1f6fff; box-shadow:0 0 0 2px rgba(31,111,255,.1);
 }
 
 select{
-  background:#fff;
-  color:#333;
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
+  background:#fff; color:#333; appearance:none; -webkit-appearance:none;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat:no-repeat;
-  background-position:right 12px center;
-  background-size:18px;
-  padding-right:40px;
+  background-repeat:no-repeat; background-position:right 12px center;
+  background-size:18px; padding-right:40px;
 }
-
-select option[value=""]{
-  color:#999;
-}
+select option[value=""]{ color:#999; }
 
 button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
+  width:100%; padding:14px; border:none; border-radius:10px;
   background:linear-gradient(135deg,#018845,#00b118);
-  color:#fff;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  transition:.2s;
+  color:#fff; font-size:16px; font-weight:700; cursor:pointer; transition:.2s;
 }
+button:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,150,80,.35); }
+button:disabled{ opacity:.6; cursor:default; transform:none; box-shadow:none; }
 
-button:hover{
-  transform:translateY(-1px);
-  box-shadow:0 8px 18px rgba(31,111,255,.35);
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:default;
-  transform:none;
-  box-shadow:none;
-}
-
-/* Botão de pagamento — amarelo/laranja para destacar */
 #btnPagar{
   background:linear-gradient(135deg,#f5a500,#e07b00);
-  font-size:17px;
-  padding:16px;
+  font-size:17px; padding:16px; margin-bottom:20px;
 }
+#btnPagar:hover{ box-shadow:0 8px 18px rgba(240,140,0,.4); }
 
-#btnPagar:hover{
-  box-shadow:0 8px 18px rgba(240,140,0,.4);
+.aviso{
+  background:#fffbe6; border:1.5px solid #f5a500; border-radius:10px;
+  padding:14px 16px; margin-bottom:20px; font-size:13px; color:#7a4f00; line-height:1.6;
 }
+.aviso strong{ display:block; font-size:14px; margin-bottom:4px; color:#e07b00; }
 
-#msg{
-  margin-top:14px;
-  text-align:center;
-  font-size:14px;
-  font-weight:600;
-  color:#1f6fff;
+.divisor{
+  display:flex; align-items:center; gap:10px;
+  margin:20px 0; color:#aaa; font-size:13px;
 }
+.divisor::before,.divisor::after{ content:""; flex:1; height:1px; background:#e5e5e5; }
+
+.upload-box{
+  border:2px dashed #f5a500; border-radius:10px; padding:18px;
+  text-align:center; cursor:pointer; background:#fffdf5; transition:.2s;
+}
+.upload-box:hover{ background:#fff8e1; }
+.upload-box input[type="file"]{ display:none; }
+.upload-box .icone-upload{ font-size:32px; margin-bottom:6px; }
+.upload-box p{ margin:4px 0 0; font-size:13px; color:#888; }
+.upload-box p strong{ color:#e07b00; }
+
+#previewWrap{ margin-top:12px; display:none; text-align:center; }
+#previewWrap img{
+  max-width:100%; max-height:200px; border-radius:8px;
+  border:1px solid #ddd; box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+#previewWrap span{ display:block; margin-top:6px; font-size:12px; color:#666; }
+
+#msg{ margin-top:14px; text-align:center; font-size:14px; font-weight:600; }
 
 .footer{
-  text-align:center;
-  padding:14px;
-  font-size:12px;
-  color:#777;
-  border-top:1px solid #eee;
+  text-align:center; padding:14px; font-size:12px;
+  color:#777; border-top:1px solid #eee;
 }
 
-.site-header{
-  width:100%;
-  background:#fff;
-  text-align:center;
+#telaFinal{ display:none; padding:36px 24px; text-align:center; }
+#telaFinal .icone{ font-size:56px; margin-bottom:14px; }
+#telaFinal h2{ margin:0 0 10px; color:#046101; font-size:22px; }
+#telaFinal p{ color:#555; font-size:14px; line-height:1.7; margin:0 0 20px; }
+#telaFinal .btn-zap{
+  display:inline-block; background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff; font-weight:700; font-size:15px; padding:14px 28px;
+  border-radius:10px; text-decoration:none; transition:.2s;
 }
-
-.site-header img{
-  width:100%;
-  max-height:180px;
-  object-fit:cover;
-  display:block;
-}
-
-/* Caixa de aviso de pagamento */
-.aviso-pagamento{
-  background:#fffbe6;
-  border:1.5px solid #f5a500;
-  border-radius:10px;
-  padding:16px 18px;
-  margin-bottom:20px;
-  font-size:14px;
-  color:#7a4f00;
-  line-height:1.6;
-}
-
-.aviso-pagamento strong{
-  display:block;
-  font-size:15px;
-  margin-bottom:6px;
-  color:#e07b00;
-}
-
-/* Divisor entre etapas */
-.divisor{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:20px 0;
-  color:#aaa;
-  font-size:13px;
-}
-
-.divisor::before,
-.divisor::after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:#e5e5e5;
-}
-
-/* Destaque no campo comprovante */
-.campo-comprovante input{
-  border-color:#f5a500;
-  background:#fffdf5;
-}
-
-.campo-comprovante input:focus{
-  border-color:#e07b00;
-  box-shadow:0 0 0 2px rgba(245,165,0,.15);
-}
-
-/* Tela de sucesso */
-#telaFinal{
-  display:none;
-  padding:30px 24px;
-  text-align:center;
-}
-
-#telaFinal .icone{
-  font-size:52px;
-  margin-bottom:12px;
-}
-
-#telaFinal h2{
-  margin:0 0 8px;
-  color:#046101;
-  font-size:20px;
-}
-
-#telaFinal p{
-  color:#555;
-  font-size:14px;
-  line-height:1.6;
-  margin:0;
-}
+#telaFinal .btn-zap:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(37,211,102,.4); }
 </style>
 </head>
 <body>
-
 <div class="card">
 
   <div class="site-header">
@@ -244,31 +120,23 @@ button:disabled{
   </div>
 
   <div class="header">
-    <h1>Inscrição para o Chá entre Meninas</h1>
-    <p>Pague primeiro, depois preencha seus dados</p>
+    <h1>Inscrição — Chá entre Meninas</h1>
+    <p>Pague, envie o comprovante e garanta sua vaga!</p>
   </div>
 
-  <!-- ══════════════════════════════════════
-       ETAPA 1 — PAGAMENTO
-  ══════════════════════════════════════ -->
   <div id="etapa1" class="form-area">
 
-    <div class="aviso-pagamento">
-      <strong>⚠️ Antes de se inscrever, realize o pagamento</strong>
-      Clique no botão abaixo para pagar via Nubank. Após confirmar o pagamento, 
-      volte aqui e preencha o formulário com o <b>código de transação</b> 
-      do seu comprovante.
+    <div class="aviso">
+      <strong>⚠️ Pague antes de se inscrever</strong>
+      Clique em "Ir para o pagamento", realize o PIX e volte aqui para preencher
+      o formulário e enviar o comprovante.
     </div>
 
-    <button id="btnPagar" onclick="irParaPagamento()">
+    <button id="btnPagar" type="button" onclick="irParaPagamento()">
       💳 Ir para o pagamento agora
     </button>
 
     <div class="divisor">já paguei</div>
-
-    <p style="text-align:center;font-size:13px;color:#555;margin:0 0 16px;">
-      Já realizou o pagamento? Preencha o formulário abaixo.
-    </p>
 
     <form id="formInscricao">
 
@@ -308,22 +176,21 @@ button:disabled{
         </select>
       </div>
 
-      <!-- Campo obrigatório: código do comprovante -->
-      <div class="field campo-comprovante">
-        <label>🧾 Código de transação do comprovante (obrigatório)</label>
-        <input
-          type="text"
-          name="comprovante"
-          id="comprovante"
-          placeholder="Ex: E18521783202506181234..."
-          required
-          minlength="6"
-        >
+      <div class="field">
+        <label>🧾 Comprovante de pagamento (obrigatório)</label>
+        <div class="upload-box" onclick="document.getElementById('arquivoComprovante').click()">
+          <input type="file" id="arquivoComprovante" accept="image/*,.pdf" onchange="mostrarPreview(this)">
+          <div class="icone-upload">📎</div>
+          <p><strong>Clique aqui</strong> para selecionar o comprovante</p>
+          <p>Imagem ou PDF</p>
+        </div>
+        <div id="previewWrap">
+          <img id="previewImg" src="" alt="Pré-visualização">
+          <span id="nomeArquivo"></span>
+        </div>
       </div>
 
-      <button type="submit" id="btn">
-        ✅ Confirmar inscrição
-      </button>
+      <button type="submit" id="btn">✅ Confirmar inscrição</button>
 
     </form>
 
@@ -331,45 +198,59 @@ button:disabled{
 
   </div>
 
-  <!-- ══════════════════════════════════════
-       TELA FINAL — SUCESSO
-  ══════════════════════════════════════ -->
   <div id="telaFinal">
     <div class="icone">🎉</div>
     <h2>Inscrição confirmada!</h2>
     <p>
-      Sua inscrição foi salva com sucesso.<br><br>
-      Lembre-se de enviar o comprovante de pagamento ao seu <b>líder de área</b>.
+      Seus dados foram salvos com sucesso.<br>
+      Agora clique no botão abaixo para enviar o comprovante pelo WhatsApp
+      e finalizar sua inscrição.
+    </p>
+    <a id="linkZap" href="#" target="_blank" class="btn-zap">
+      📲 Enviar comprovante no WhatsApp
+    </a>
+    <p style="margin-top:16px;font-size:12px;color:#aaa;">
+      Após enviar, aguarde a confirmação do seu líder de área.
     </p>
   </div>
 
-  <div class="footer">
-    Criado por Bruno &mdash; Sistema de inscrição online
-  </div>
+  <div class="footer">Criado por Bruno &mdash; Sistema de inscrição online</div>
 
 </div>
-
 <script>
-/* ── Configurações ── */
 const urlScript     = "https://script.google.com/macros/s/AKfycbz1vTqZNoaqiAEhi8HE4DzyEIrr6DjUfJ6uYoz4Zn1OUOfF7w44XvByW1aTLumd0nnzJQ/exec";
 const linkPagamento = "https://nubank.com.br/cobrar/b64w8/69a20883-af0e-4ba3-a5df-cc08936dc523";
+const numeroZap     = "5591992346353";
 
-/* ── Ir para o pagamento ── */
 function irParaPagamento(){
   window.open(linkPagamento, "_blank");
 }
 
-/* ── Máscara de telefone ── */
-const telefoneInput = document.getElementById("telefone");
-telefoneInput.addEventListener("input", function(){
-  let v = telefoneInput.value.replace(/\D/g,"");
+function mostrarPreview(input){
+  const wrap    = document.getElementById("previewWrap");
+  const img     = document.getElementById("previewImg");
+  const nomeTxt = document.getElementById("nomeArquivo");
+  if(!input.files || !input.files[0]) return;
+  const arquivo = input.files[0];
+  nomeTxt.textContent = arquivo.name;
+  if(arquivo.type.startsWith("image/")){
+    const reader = new FileReader();
+    reader.onload = e => { img.src = e.target.result; img.style.display = "block"; };
+    reader.readAsDataURL(arquivo);
+  } else {
+    img.style.display = "none";
+  }
+  wrap.style.display = "block";
+}
+
+document.getElementById("telefone").addEventListener("input", function(){
+  let v = this.value.replace(/\D/g,"");
   if(v.length > 11) v = v.slice(0,11);
-  if(v.length > 6)       telefoneInput.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-  else if(v.length > 2)  telefoneInput.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
-  else if(v.length > 0)  telefoneInput.value = `(${v}`;
+  if(v.length > 6)      this.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if(v.length > 2) this.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  else if(v.length > 0) this.value = `(${v}`;
 });
 
-/* ── Envio do formulário ── */
 const form = document.getElementById("formInscricao");
 const msg  = document.getElementById("msg");
 const btn  = document.getElementById("btn");
@@ -377,11 +258,10 @@ const btn  = document.getElementById("btn");
 form.addEventListener("submit", function(e){
   e.preventDefault();
 
-  const comprovante = document.getElementById("comprovante").value.trim();
-
-  if(comprovante.length < 6){
+  const arquivo = document.getElementById("arquivoComprovante").files[0];
+  if(!arquivo){
     msg.style.color = "#cc0000";
-    msg.innerText = "⚠️ Informe o código de transação do seu comprovante.";
+    msg.innerText = "⚠️ Selecione o comprovante de pagamento antes de continuar.";
     return;
   }
 
@@ -391,33 +271,45 @@ form.addEventListener("submit", function(e){
 
   const dados = new FormData(form);
 
-  fetch(urlScript,{
-    method:"POST",
-    body:dados
-  })
-  .then(r => r.text())
-  .then(resposta => {
+  fetch(urlScript, { method:"POST", body:dados })
+    .then(r => r.text())
+    .then(resposta => {
+      if(resposta.trim() === "OK"){
 
-    if(resposta.trim() === "OK"){
-      /* Esconde formulário e mostra tela de sucesso */
-      document.getElementById("etapa1").style.display = "none";
-      document.getElementById("telaFinal").style.display = "block";
+        const nome        = form.querySelector('[name="nome"]').value;
+        const telefone    = form.querySelector('[name="telefone"]').value;
+        const email       = form.querySelector('[name="email"]').value;
+        const congregacao = form.querySelector('[name="congregacao"]').value;
+        const grupo       = form.querySelector('[name="grupo"]').value;
+        const area        = form.querySelector('[name="area"]').value;
 
-    }else{
+        const texto =
+          `✅ *Comprovante de Inscrição — Chá entre Meninas*\n\n` +
+          `👤 *Nome:* ${nome}\n` +
+          `📱 *Telefone:* ${telefone}\n` +
+          `📧 *E-mail:* ${email || "—"}\n` +
+          `⛪ *Congregação:* ${congregacao}\n` +
+          `👥 *Grupo:* ${grupo}\n` +
+          `📍 *Área:* ${area}\n\n` +
+          `_Comprovante de pagamento em anexo._`;
+
+        const urlZap = `https://wa.me/${numeroZap}?text=${encodeURIComponent(texto)}`;
+        document.getElementById("linkZap").href = urlZap;
+        document.getElementById("etapa1").style.display   = "none";
+        document.getElementById("telaFinal").style.display = "block";
+
+      } else {
+        msg.style.color = "#cc0000";
+        msg.innerText = "Não foi possível salvar. Tente novamente.";
+        btn.disabled = false;
+      }
+    })
+    .catch(() => {
       msg.style.color = "#cc0000";
-      msg.innerText = "Não foi possível salvar sua inscrição. Tente novamente.";
+      msg.innerText = "Falha na conexão. Verifique sua internet e tente novamente.";
       btn.disabled = false;
-    }
-
-  })
-  .catch(() => {
-    msg.style.color = "#cc0000";
-    msg.innerText = "Falha na conexão. Verifique sua internet e tente novamente.";
-    btn.disabled = false;
-  });
-
+    });
 });
 </script>
-
 </body>
 </html>
