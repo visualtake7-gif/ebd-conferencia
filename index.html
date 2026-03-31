@@ -64,7 +64,7 @@ label{
   color:#333;
 }
 
-input{
+input, select{
   width:100%;
   padding:12px 14px;
   border-radius:8px;
@@ -74,9 +74,26 @@ input{
   transition:.2s;
 }
 
-input:focus{
+input:focus, select:focus{
   border-color:#1f6fff;
   box-shadow:0 0 0 2px rgba(31,111,255,.1);
+}
+
+select{
+  background:#fff;
+  color:#333;
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  background-size:18px;
+  padding-right:40px;
+}
+
+select option[value=""]{
+  color:#999;
 }
 
 button{
@@ -104,6 +121,17 @@ button:disabled{
   box-shadow:none;
 }
 
+/* Botão de pagamento — amarelo/laranja para destacar */
+#btnPagar{
+  background:linear-gradient(135deg,#f5a500,#e07b00);
+  font-size:17px;
+  padding:16px;
+}
+
+#btnPagar:hover{
+  box-shadow:0 8px 18px rgba(240,140,0,.4);
+}
+
 #msg{
   margin-top:14px;
   text-align:center;
@@ -119,6 +147,7 @@ button:disabled{
   color:#777;
   border-top:1px solid #eee;
 }
+
 .site-header{
   width:100%;
   background:#fff;
@@ -131,54 +160,115 @@ button:disabled{
   object-fit:cover;
   display:block;
 }
-/* Select (campo Área) */
-select{
-  width:100%;
-  padding:12px 14px;
-  border-radius:8px;
-  border:1px solid #dcdcdc;
+
+/* Caixa de aviso de pagamento */
+.aviso-pagamento{
+  background:#fffbe6;
+  border:1.5px solid #f5a500;
+  border-radius:10px;
+  padding:16px 18px;
+  margin-bottom:20px;
+  font-size:14px;
+  color:#7a4f00;
+  line-height:1.6;
+}
+
+.aviso-pagamento strong{
+  display:block;
   font-size:15px;
-  outline:none;
-  background:#fff;
-  color:#333;
-  transition:.2s;
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-
-  /* seta personalizada */
-  background-image:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat:no-repeat;
-  background-position:right 12px center;
-  background-size:18px;
-  padding-right:40px;
+  margin-bottom:6px;
+  color:#e07b00;
 }
 
-/* foco igual os inputs */
-select:focus{
-  border-color:#1f6fff;
-  box-shadow:0 0 0 2px rgba(31,111,255,.1);
+/* Divisor entre etapas */
+.divisor{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:20px 0;
+  color:#aaa;
+  font-size:13px;
 }
 
-/* placeholder visual */
-select option[value=""]{
-  color:#999;
+.divisor::before,
+.divisor::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:#e5e5e5;
+}
+
+/* Destaque no campo comprovante */
+.campo-comprovante input{
+  border-color:#f5a500;
+  background:#fffdf5;
+}
+
+.campo-comprovante input:focus{
+  border-color:#e07b00;
+  box-shadow:0 0 0 2px rgba(245,165,0,.15);
+}
+
+/* Tela de sucesso */
+#telaFinal{
+  display:none;
+  padding:30px 24px;
+  text-align:center;
+}
+
+#telaFinal .icone{
+  font-size:52px;
+  margin-bottom:12px;
+}
+
+#telaFinal h2{
+  margin:0 0 8px;
+  color:#046101;
+  font-size:20px;
+}
+
+#telaFinal p{
+  color:#555;
+  font-size:14px;
+  line-height:1.6;
+  margin:0;
 }
 </style>
 </head>
 <body>
 
 <div class="card">
-<div class="site-header">
-  <img src="chá entre meninas 20 de março.png" alt="Banner do evento">
-</div>
-  <div class="header">
-    <h1>Inscrição para o Chá entre Meninas</h1>
-    <p>Preencha seus dados para garantir sua participação</p>
+
+  <div class="site-header">
+    <img src="chá entre meninas 20 de março.png" alt="Banner do evento">
   </div>
 
-  <div class="form-area">
+  <div class="header">
+    <h1>Inscrição para o Chá entre Meninas</h1>
+    <p>Pague primeiro, depois preencha seus dados</p>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ETAPA 1 — PAGAMENTO
+  ══════════════════════════════════════ -->
+  <div id="etapa1" class="form-area">
+
+    <div class="aviso-pagamento">
+      <strong>⚠️ Antes de se inscrever, realize o pagamento</strong>
+      Clique no botão abaixo para pagar via Nubank. Após confirmar o pagamento, 
+      volte aqui e preencha o formulário com o <b>código de transação</b> 
+      do seu comprovante.
+    </div>
+
+    <button id="btnPagar" onclick="irParaPagamento()">
+      💳 Ir para o pagamento agora
+    </button>
+
+    <div class="divisor">já paguei</div>
+
+    <p style="text-align:center;font-size:13px;color:#555;margin:0 0 16px;">
+      Já realizou o pagamento? Preencha o formulário abaixo.
+    </p>
 
     <form id="formInscricao">
 
@@ -187,10 +277,10 @@ select option[value=""]{
         <input type="text" name="nome" required>
       </div>
 
-   <div class="field">
-  <label>Telefone</label>
-  <input type="tel" name="telefone" id="telefone" required>
-</div>
+      <div class="field">
+        <label>Telefone</label>
+        <input type="tel" name="telefone" id="telefone" required>
+      </div>
 
       <div class="field">
         <label>E-mail</label>
@@ -201,54 +291,102 @@ select option[value=""]{
         <label>Congregação</label>
         <input type="text" name="congregacao" required>
       </div>
+
       <div class="field">
         <label>Grupo</label>
         <input type="text" name="grupo" required>
       </div>
-      <div class="field">
-  <label>Área</label>
-  <select name="area" required>
-    <option value="">Selecione a área</option>
-    <option value="Curuçambá">Curuçambá</option>
-    <option value="Distrito Industrial">Distrito Industrial</option>
-    <option value="PAAR">PAAR</option>
-    <option value="Guajará">Guajará</option>
-  </select>
-</div>
 
+      <div class="field">
+        <label>Área</label>
+        <select name="area" required>
+          <option value="">Selecione a área</option>
+          <option value="Curuçambá">Curuçambá</option>
+          <option value="Distrito Industrial">Distrito Industrial</option>
+          <option value="PAAR">PAAR</option>
+          <option value="Guajará">Guajará</option>
+        </select>
+      </div>
+
+      <!-- Campo obrigatório: código do comprovante -->
+      <div class="field campo-comprovante">
+        <label>🧾 Código de transação do comprovante (obrigatório)</label>
+        <input
+          type="text"
+          name="comprovante"
+          id="comprovante"
+          placeholder="Ex: E18521783202506181234..."
+          required
+          minlength="6"
+        >
+      </div>
 
       <button type="submit" id="btn">
-        Continuar para o pagamento
+        ✅ Confirmar inscrição
       </button>
-      
+
     </form>
 
     <div id="msg"></div>
 
   </div>
 
+  <!-- ══════════════════════════════════════
+       TELA FINAL — SUCESSO
+  ══════════════════════════════════════ -->
+  <div id="telaFinal">
+    <div class="icone">🎉</div>
+    <h2>Inscrição confirmada!</h2>
+    <p>
+      Sua inscrição foi salva com sucesso.<br><br>
+      Lembre-se de enviar o comprovante de pagamento ao seu <b>líder de área</b>.
+    </p>
+  </div>
+
   <div class="footer">
-    Criado por Bruno Sistema de inscrição online
+    Criado por Bruno &mdash; Sistema de inscrição online
   </div>
 
 </div>
 
 <script>
+/* ── Configurações ── */
+const urlScript     = "https://script.google.com/macros/s/AKfycbz1vTqZNoaqiAEhi8HE4DzyEIrr6DjUfJ6uYoz4Zn1OUOfF7w44XvByW1aTLumd0nnzJQ/exec";
+const linkPagamento = "https://nubank.com.br/cobrar/b64w8/69a20883-af0e-4ba3-a5df-cc08936dc523";
+
+/* ── Ir para o pagamento ── */
+function irParaPagamento(){
+  window.open(linkPagamento, "_blank");
+}
+
+/* ── Máscara de telefone ── */
+const telefoneInput = document.getElementById("telefone");
+telefoneInput.addEventListener("input", function(){
+  let v = telefoneInput.value.replace(/\D/g,"");
+  if(v.length > 11) v = v.slice(0,11);
+  if(v.length > 6)       telefoneInput.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if(v.length > 2)  telefoneInput.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  else if(v.length > 0)  telefoneInput.value = `(${v}`;
+});
+
+/* ── Envio do formulário ── */
 const form = document.getElementById("formInscricao");
 const msg  = document.getElementById("msg");
 const btn  = document.getElementById("btn");
 
-/* URL do Web App (Google Apps Script) */
-  const urlScript = "https://script.google.com/macros/s/AKfycbz1vTqZNoaqiAEhi8HE4DzyEIrr6DjUfJ6uYoz4Zn1OUOfF7w44XvByW1aTLumd0nnzJQ/exec";
-
-/* Seu link de pagamento */
-const linkPagamento = "https://nubank.com.br/cobrar/b64w8/69a20883-af0e-4ba3-a5df-cc08936dc523";
-
-
 form.addEventListener("submit", function(e){
   e.preventDefault();
 
+  const comprovante = document.getElementById("comprovante").value.trim();
+
+  if(comprovante.length < 6){
+    msg.style.color = "#cc0000";
+    msg.innerText = "⚠️ Informe o código de transação do seu comprovante.";
+    return;
+  }
+
   btn.disabled = true;
+  msg.style.color = "#1f6fff";
   msg.innerText = "Salvando sua inscrição...";
 
   const dados = new FormData(form);
@@ -261,104 +399,24 @@ form.addEventListener("submit", function(e){
   .then(resposta => {
 
     if(resposta.trim() === "OK"){
-
-      const confirmar = confirm(
-  "🟢 CONFIRMAÇÃO NECCESSÁRIA\n\n" +
-  "Sua confirmação será enviada por e-mail.\n\n" +
-  "Antes de prosseguir para o pagamento, é obrigatório enviar o comprovante de inscrição ao seu líder de área.\n\n" +
-  "Deseja continuar agora para o pagamento?"
-);
-
-      if(confirmar){
-        msg.innerText = "Inscrição realizada. Redirecionando para o pagamento...";
-
-        setTimeout(() => {
-          window.location.href = linkPagamento;
-        }, 800);
-
-      }else{
-        msg.innerText = "Envie o comprovante ao seu líder apos pagamento ";
-        btn.disabled = false;
-      }
+      /* Esconde formulário e mostra tela de sucesso */
+      document.getElementById("etapa1").style.display = "none";
+      document.getElementById("telaFinal").style.display = "block";
 
     }else{
-      msg.innerText = "Não foi possível salvar sua inscrição.";
+      msg.style.color = "#cc0000";
+      msg.innerText = "Não foi possível salvar sua inscrição. Tente novamente.";
       btn.disabled = false;
     }
 
   })
   .catch(() => {
-    msg.innerText = "Falha na conexão. Tente novamente.";
+    msg.style.color = "#cc0000";
+    msg.innerText = "Falha na conexão. Verifique sua internet e tente novamente.";
     btn.disabled = false;
   });
 
 });
-  const telefoneInput = document.getElementById("telefone");
-
-telefoneInput.addEventListener("input", function () {
-
-  let v = telefoneInput.value.replace(/\D/g, "");
-
-  if (v.length > 11) v = v.slice(0, 11);
-
-  if (v.length > 6) {
-    telefoneInput.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-  } 
-  else if (v.length > 2) {
-    telefoneInput.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
-  } 
-  else if (v.length > 0) {
-    telefoneInput.value = `(${v}`;
-  }
-
-});
-
-
-function gerarComprovante(id){
-
-  const nome = document.querySelector('[name="nome"]').value;
-  const telefone = document.querySelector('[name="telefone"]').value;
-  const email = document.querySelector('[name="email"]').value;
-  const congregacao = document.querySelector('[name="congregacao"]').value;
-  const area = document.querySelector('[name="area"]').value;
-
-  const data = new Date().toLocaleString("pt-BR");
-
-  const tela = window.open("", "_blank");
-
-  tela.document.write(`
-    <html>
-    <head>
-      <title>Comprovante de inscrição</title>
-      <style>
-        body{font-family:Arial;padding:30px}
-        .box{max-width:600px;margin:auto;border:1px solid #ccc;padding:20px}
-        h2{text-align:center}
-      </style>
-    </head>
-    <body>
-
-      <div class="box">
-        <h2>Comprovante de inscrição</h2>
-
-        <p><b>Código:</b> ${id}</p>
-        <p><b>Nome:</b> ${nome}</p>
-        <p><b>Telefone:</b> ${telefone}</p>
-        <p><b>E-mail:</b> ${email}</p>
-        <p><b>Congregação:</b> ${congregacao}</p>
-        <p><b>Área:</b> ${area}</p>
-        <p><b>Data:</b> ${data}</p>
-
-      </div>
-
-    </body>
-    </html>
-  `);
-
-  tela.document.close();
-}
-</script>
-</script>
 </script>
 
 </body>
