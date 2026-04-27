@@ -539,26 +539,6 @@ document.getElementById("formDados").addEventListener("submit", async function(e
         email: dados.email || undefined,
       }
     };
-
-    const resp = await fetch("https://api.infinitepay.io/invoices/public/checkout/links", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    if(!resp.ok){
-      throw new Error(`HTTP ${resp.status}`);
-    }
-
-    const json = await resp.json();
-
-    if(json && json.link){
-      // ✅ Redireciona para o checkout do InfinityPay
-      window.location.href = json.link;
-    } else {
-      throw new Error("Link não retornado");
-    }
-
   } catch(err){
     console.error("InfinityPay erro:", err);
     btn.disabled = false;
