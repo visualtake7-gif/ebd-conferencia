@@ -26,8 +26,8 @@
   --shadow: 0 20px 50px rgba(0,0,0,.13);
 
   /* Layout */
-  --card-max: 520px;
-  --form-padding: clamp(16px, 4vw, 32px);
+  --card-max: 100%;
+  --form-padding: clamp(16px, 4vw, 48px);
 }
 
 html { scroll-behavior: smooth; }
@@ -36,10 +36,9 @@ body {
   font-family: "DM Sans", sans-serif;
   background: linear-gradient(160deg, #071a4a 0%, #0e2d80 60%, #1a4db5 100%);
   min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: clamp(12px, 3vw, 40px) clamp(8px, 2vw, 20px);
+  display: block;
+  padding: 0;
+  margin: 0;
 }
 
 body::before {
@@ -54,10 +53,10 @@ body::before {
 /* ── Card ──────────────────────────────────────────── */
 .card {
   width: 100%;
-  max-width: var(--card-max);
+  
   background: #fff;
-  border-radius: clamp(12px, 2vw, 20px);
-  box-shadow: var(--shadow);
+  
+  
   overflow: hidden;
   position: relative;
 }
@@ -154,7 +153,7 @@ body::before {
 .step.done   .step-label { color: var(--green-bright); }
 
 /* ── Form area ─────────────────────────────────────── */
-.form-area { padding: var(--form-padding); }
+.form-area { padding: var(--form-padding); max-width: 860px; margin: 0 auto; }
 
 /* ── Notice box ────────────────────────────────────── */
 .aviso {
@@ -439,19 +438,19 @@ select {
 
 /* ── Desktop enhancements (≥640px) ─────────────────── */
 @media (min-width: 640px) {
-  body {
-    align-items: center;
-    min-height: 100vh;
-    padding: 40px 20px;
-  }
-  .card { margin: auto; }
   .btn:hover { transform: translateY(-2px); }
+  .banner img { max-height: clamp(220px, 30vw, 340px); }
+  .header h1 { font-size: clamp(20px, 3vw, 28px); }
+  .steps { padding: 18px 40px; }
+  .row2 { gap: 20px; }
 }
 
 /* ── Large screens ──────────────────────────────────── */
 @media (min-width: 1024px) {
-  :root { --card-max: 540px; }
-  body { padding: 60px 20px; }
+  .form-area { padding: 40px clamp(48px, 8vw, 120px); }
+  .header { padding: 26px clamp(48px, 8vw, 120px); }
+  .steps { padding: 18px clamp(48px, 8vw, 120px); }
+  .footer { padding: 16px clamp(48px, 8vw, 120px); text-align: left; }
 }
 
 /* ── High DPI / Retina ──────────────────────────────── */
@@ -620,7 +619,7 @@ select {
 <script>
 /* ── CONFIG ── */
 const CONFIG = {
-  urlPagamento: "https://checkout.infinitepay.io/midian-caldas/3suCvBWdzn",
+  urlPagamento: "https://invoice.infinitepay.io/midian-caldas/3stcZUOkVx/",
   urlScript: "https://script.google.com/macros/s/AKfycbzKdHQy-TaRGXYC9yxbJoLKqIYX017zEiBNGLI9xY1VlZWJL0vNqtd8eeq76Y5vY-g_PQ/exec",
   numeroZap: "5591992346353"
 };
